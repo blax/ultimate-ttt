@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js"></script>
+		<script src="./uttt_model.js" defer="defer"></script>
+	  </head>
+
+
+	<body>
+		<h1>Ultimate Tic Tac Toe</h1>
+		<div id="game"></div>
+		<table class="big-board" data-bind="foreach: big_rows">
+			<tr class="big-row" data-bind="foreach: big_cols">
+				<td class="big-col">
+					<table class="small-board" data-bind="foreach: small_rows">
+						<tr class="small-row" data-bind="foreach: small_cols">
+							<td class="small-col" data-bind="text: cell"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
