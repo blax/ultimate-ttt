@@ -5,7 +5,7 @@ function UTTTViewModel() {
 	function makeSmall() {
 		var small = {small_rows: []}
 		for(var i=0; i<3; i++){
-			small.small_rows.push({small_cols: [{cell: 'O'},{cell: 'X'},{cell: 'O'}]});
+			small.small_rows.push({small_cols: [new FieldViewModel('O'), new FieldViewModel('O'), new FieldViewModel('O')]});
 		}
 		return small;
 	}
@@ -15,9 +15,11 @@ function UTTTViewModel() {
 	
 }
 
-function FieldViewModel(x, y) {
+function FieldViewModel(state) {
 	var self = this;
-	
+	// self.x = x;
+	// self.y = y;
+	self.state = ko.observable(state || ' ');
 }
 
 
