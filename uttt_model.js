@@ -15,5 +15,10 @@ function UTTTViewModel() {
 	
 }
 
+function FieldViewModel(x, y) {
+	var self = this;
+	
+}
+
 
 ko.applyBindings(new UTTTViewModel());

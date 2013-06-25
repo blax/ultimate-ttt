@@ -1,0 +1,26 @@
+#game {
+	text-align: center;
+}
+#game h1 {
+	font-size: 60px;
+    margin: 30px;
+}
+table {
+	display: inline-block;
+}
+
+.small-board {
+    margin: 10px;
+}
+
+.small-col {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    border: 3px solid black;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 10px;
+}
+ 
