@@ -18,9 +18,10 @@
 		<table class="big-board" data-bind="foreach: big_rows">
 			<tr class="big-row" data-bind="foreach: big_cols">
 				<td class="big-col">
-					<table class="small-board" data-bind="foreach: small_rows">
-						<tr class="small-row" data-bind="foreach: small_cols">
-							<td class="small-col" data-bind="text: state"></td>
+					<table class="small-board" data-bind="foreach: rows">
+						<tr class="small-row" data-bind="foreach: cols">
+							<td class="small-col" data-bind="text: state">
+							</td>
 						</tr>
 					</table>
 				</td>

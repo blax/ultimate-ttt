@@ -1,18 +1,36 @@
-function UTTTViewModel() {
+function BigBoardViewModel() {
 	var self = this;
 
+	// big board setup
 	self.big_rows = ko.observableArray();
-	function makeSmall() {
-		var small = {small_rows: []}
-		for(var i=0; i<3; i++){
-			small.small_rows.push({small_cols: [new FieldViewModel('O'), new FieldViewModel('O'), new FieldViewModel('O')]});
+	var makeRow = function() {
+		var row = [];
+		for(var i =0 ; i<3; i++) {
+			row.push(new SmallBoardViewModel());
 		}
-		return small;
+		return row;
 	}
 	for(var i=0; i<3; i++){
-		self.big_rows.push({big_cols: [makeSmall(), makeSmall(), makeSmall()]})
+		self.big_rows.push({big_cols: makeRow()});
 	}
 	
+}
+
+function SmallBoardViewModel() {
+	var self = this;
+
+	// board setup
+	self.rows = ko.observableArray()
+	var makeRow = function() {
+		var row = [];
+		for(var i =0 ; i<3; i++) {
+			row.push(new FieldViewModel('0'));
+		}
+		return row;
+	}
+	for(var i = 0; i<3; i++) {
+		self.rows.push({cols: makeRow()});
+	}
 }
 
 function FieldViewModel(state) {
@@ -23,4 +41,6 @@ function FieldViewModel(state) {
 }
 
 
-ko.applyBindings(new UTTTViewModel());
+
+
+ko.applyBindings(new BigBoardViewModel());
