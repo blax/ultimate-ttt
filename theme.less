@@ -1,0 +1,78 @@
+@black:                 #000;
+@grayDarker:            #222;
+@grayDark:              #7b8a8b;
+@gray:                  #95A5A6;
+@grayLight:             #b4bcc2;
+@grayLighter:           #ECF0F1;
+@white:                 #fff;
+
+@blue:                  #3498DB;
+@blueDark:              #2C3E50;
+@green:                 #18BC9C;
+@red:                   #E74C3C;
+@yellow:                #e6bb0d;
+@orange:                #F39C12;
+@pink:                  #ff6699;
+@purple:                #8E44AD;
+
+
+#game {
+	text-align: center;
+}
+
+table {
+	display: inline-block;
+}
+
+table.small-board .small-col {
+	font-family: 'Quantico', Helvetica, Arial, sans-serif;
+	font-size: 30px;
+	text-align: center;
+	height: 50px;
+	width: 50px;
+	display: table-cell;
+	vertical-align:middle;
+	background-color: white;
+	color: @grayDarker;
+	cursor: pointer;
+	margin: 0;
+}
+.big-col {
+	padding: 10px;
+	margin: 0;
+}
+.table.small-board {
+	display: table;
+	margin-bottom: 0;
+}
+
+.small-board.inactive-board .small-col:hover {
+	background-color: @grayLighter;
+	cursor: default;
+}
+
+.small-board.active-board .small-col:hover {
+	background-color: @grayLight;
+}
+
+
+table.small-board .small-col.last-move {
+	color: @black;
+	font-weight: bold;
+	font-size: 40px;
+}
+
+.small-board.won-board-O .small-col {
+	color: @orange;
+}
+
+.small-board.won-board-X .small-col {
+	color: @purple;
+}
+
+.small-board.active-board .small-col {
+	background-color: @grayLighter;
+}
+
+.small-board.inactive-board .small-col {
+}
