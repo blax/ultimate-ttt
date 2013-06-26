@@ -70,9 +70,8 @@ function BigBoardModel() {
 			}
 			board.push(row);
 		}
-		console.log(board);
 		return ticTacToeWinner(board);
-	}, self, {deferEvaluation: true});
+	}, self, {deferEvaluation: true, disposeWhen: function(){return self.winner()}});
 
 	// big board setup
 	self.big_rows = [];
@@ -105,8 +104,6 @@ function SmallBoardModel(parent, id) {
 	}
 
 	self.winner = ko.computed(function() {
-		// @TODO: check if dependency chain computes a state of a board
-		// when another board changes and we need to check big-board state
 		// @TODO: compute board-mirror in simple 2d array to optimize
 		var diagACount = {'O': 0, 'X': 0};
 		var diagBCount = {'O': 0, 'X': 0};
@@ -133,14 +130,13 @@ function SmallBoardModel(parent, id) {
 			return 'X';
 		}
 		return false;
-	});
+	}, self, {deferEvaluation: true, disposeWhen: function(){return self.winner()}});
 
 	self.boardState = ko.computed(function() {
 		// @TODO: active and won are separate things, after winning the boards still can be used
 		var nsb = parent.nextSmallBoard();
 		var w = self.winner()
 		if(w){
-			self.winner.dispose();
 			return "won-board-" + w;
 		}
 		else{
