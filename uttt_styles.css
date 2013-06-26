@@ -38,4 +38,12 @@ table {
     cursor: pointer;
     padding: 10px;
 }
+
+.small-col:hover {
+    background-color: #4f5966;
+}
+
+.small-board.inactive-board .small-col:hover {
+    background-color: #434b59;
+}
  
