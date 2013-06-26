@@ -13,6 +13,11 @@ table {
     margin: 10px;
 }
 
+.small-board.inactive-board .small-col {
+    border: 2px solid #111;
+    color: #ac9997;
+}
+
 .small-col {
     position: relative;
     height: 40px;
