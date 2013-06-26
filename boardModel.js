@@ -122,10 +122,11 @@ function SmallBoardModel(parent, id) {
 		if(w){
 			return "won-board-" + w;
 		}
-		else{
-			return (nsb && nsb !== self) ? "inactive-board" : 'active-board';	
+		else {
+			// return (!self.parent.winner() && nsb && nsb !== self) ? "inactive-board" : 'active-board';	
+			return (self.parent.winner() || (nsb && nsb !== self)) ? "inactive-board" : 'active-board';	
 		}
-	});
+	}, self, {deferEvaluation: true});
 
 	self.isFilled = ko.computed(function() {
 		for (var i = 0; i<3; i++){
