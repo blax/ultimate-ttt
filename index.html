@@ -24,7 +24,7 @@
 				<td class="big-col">
 					<table class="small-board" data-bind="foreach: rows, css: boardState">
 						<tr class="small-row" data-bind="foreach: cols">
-							<td class="small-col" data-bind="text: state, click: $root.makeMove">
+							<td class="small-col" data-bind="text: state, click: $root.makeMove, css: { 'last-move': isLastMove}">
 							</td>
 						</tr>
 					</table>

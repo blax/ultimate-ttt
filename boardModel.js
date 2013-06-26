@@ -3,6 +3,27 @@ function BigBoardModel() {
 
 	self.nextSmallBoard = ko.observable(null);
 
+	self.lastMove = ko.observable(null);
+	self.nextMove = ko.observable('O');
+	self.switchMove = function() {
+		self.nextMove(self.nextMove() == 'O' ? 'X' : 'O');
+	};
+
+	self.isLastMove = function(field){
+		return field === self.lastMove();
+	};
+
+	self.makeMove = function(field) {
+		var allowedBoard = !self.nextSmallBoard() || self.nextSmallBoard() == field.parent;
+		if(allowedBoard && field.state() == ' '){
+			field.state(self.nextMove());
+			self.switchMove();
+			self.lastMove(field);
+			var next = self.big_rows[field.x].big_cols[field.y];
+			self.nextSmallBoard(next);
+		}
+	};
+	
 	// big board setup
 	self.big_rows = [];
 	var makeRow = function() {
@@ -15,29 +36,11 @@ function BigBoardModel() {
 	for(var i=0; i<3; i++){
 		self.big_rows.push({big_cols: makeRow()});
 	}
-
-
-	self.nextMove = ko.observable('O');
-	self.switchMove = function() {
-		self.nextMove(self.nextMove() == 'O' ? 'X' : 'O');
-	};
-
-	self.makeMove = function(field) {
-		var allowedBoard = !self.nextSmallBoard() || self.nextSmallBoard() == field.parent;
-		if(allowedBoard && field.state() == ' '){
-			field.state(self.nextMove());
-			self.switchMove();
-			var next = self.big_rows[field.x].big_cols[field.y];
-			self.nextSmallBoard(next);
-		}
-	};
-
-	// @TODO: remember and highlight last move
 }
 
 function SmallBoardModel(parent, id) {
 	var self = this;
-
+	self.parent = parent;
 	// board setup
 	self.rows = [];
 	var makeRow = function(index) {
