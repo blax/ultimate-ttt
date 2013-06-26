@@ -87,6 +87,7 @@ function SmallBoardModel(parent, id) {
 		var nsb = parent.nextSmallBoard();
 		var w = self.winner()
 		if(w){
+			self.winner.dispose();
 			return "won-board-" + w;
 		}
 		else{
