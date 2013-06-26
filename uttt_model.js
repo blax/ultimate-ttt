@@ -4,7 +4,7 @@ function BigBoardModel() {
 	self.nextSmallBoard = ko.observable(null);
 
 	// big board setup
-	self.big_rows = ko.observableArray();
+	self.big_rows = [];
 	var makeRow = function() {
 		var row = [];
 		for(var i =0 ; i<3; i++) {
@@ -27,7 +27,7 @@ function BigBoardModel() {
 		if(allowedBoard && field.state() == ' '){
 			field.state(self.nextMove);
 			self.switchMove();
-			var next = self.big_rows()[field.x].big_cols[field.y];
+			var next = self.big_rows[field.x].big_cols[field.y];
 			self.nextSmallBoard(next);
 		}
 	};
@@ -37,7 +37,7 @@ function SmallBoardModel(parent, id) {
 	var self = this;
 
 	// board setup
-	self.rows = ko.observableArray();
+	self.rows = [];
 	var makeRow = function(index) {
 		var row = [];
 		for(var i =0 ; i<3; i++) {
@@ -49,10 +49,45 @@ function SmallBoardModel(parent, id) {
 		self.rows.push({cols: makeRow(i)});
 	}
 
-	self.activeSmallBoard = ko.computed(function() {
-		var nsb = parent.nextSmallBoard();
-		return (nsb && nsb !== self) ? "inactive-board" : 'active-board';
+	self.winner = ko.computed(function() {
+		var diagACount = {'O': 0, 'X': 0};
+		var diagBCount = {'O': 0, 'X': 0};
+		for(var i = 0; i<3; i++) {
+			var colCount = {'O': 0, 'X': 0};
+			var rowCount = {'O': 0, 'X': 0};
+			for(var j = 0; j<3; j++) {
+				colCount[self.rows[i].cols[j].state()]++;
+				rowCount[self.rows[j].cols[i].state()]++;
+			}
+			if(colCount['O'] == 3 || rowCount['O'] == 3){
+				return 'O';
+			}
+			if(colCount['X'] == 3 || rowCount['X'] == 3){
+				return 'X';
+			}
+			diagACount[self.rows[i].cols[i].state()]++;
+			diagBCount[self.rows[2-i].cols[i].state()]++;
+		}
+		if(diagACount['O'] == 3 || diagBCount['O'] == 3){
+			return 'O';
+		}
+		if(diagACount['X'] == 3 || diagBCount['X'] == 3){
+			return 'X';
+		}
+		return false;
 	});
+
+	self.boardState = ko.computed(function() {
+		var nsb = parent.nextSmallBoard();
+		var w = self.winner()
+		if(w){
+			return "won-board-" + w;
+		}
+		else{
+			return (nsb && nsb !== self) ? "inactive-board" : 'active-board';	
+		}
+	});
+
 
 }
 

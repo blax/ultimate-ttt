@@ -13,6 +13,16 @@ table {
     margin: 10px;
 }
 
+.small-board.won-board-O .small-col {
+    border: 2px solid #33f;
+    color: #ac9997;
+}
+
+.small-board.won-board-X .small-col {
+    border: 2px solid #f33;
+    color: #ac9997;
+}
+
 .small-board.inactive-board .small-col {
     border: 2px solid #111;
     color: #ac9997;
