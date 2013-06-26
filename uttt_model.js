@@ -17,15 +17,15 @@ function BigBoardModel() {
 	}
 
 
-	self.nextMove = 'O';
+	self.nextMove = ko.observable('O');
 	self.switchMove = function() {
-		self.nextMove = self.nextMove == 'O' ? 'X' : 'O';
+		self.nextMove(self.nextMove() == 'O' ? 'X' : 'O');
 	};
 
 	self.makeMove = function(field) {
 		var allowedBoard = !self.nextSmallBoard() || self.nextSmallBoard() == field.parent;
 		if(allowedBoard && field.state() == ' '){
-			field.state(self.nextMove);
+			field.state(self.nextMove());
 			self.switchMove();
 			var next = self.big_rows[field.x].big_cols[field.y];
 			self.nextSmallBoard(next);

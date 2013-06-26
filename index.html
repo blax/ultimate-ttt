@@ -15,6 +15,9 @@
 	<body>
 		<div id="game">
 		<h1>The Ultimate Tic-Tac-Toe</h1>
+		<h3>
+			Next player: <span data-bind="text: nextMove()"></span>
+		</h3>
 		<table class="big-board" data-bind="foreach: big_rows">
 			<tr class="big-row" data-bind="foreach: big_cols">
 				<td class="big-col">
