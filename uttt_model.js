@@ -23,7 +23,8 @@ function BigBoardModel() {
 	};
 
 	self.makeMove = function(field) {
-		if(!self.nextSmallBoard() || self.nextSmallBoard() == field.parent){
+		var allowedBoard = !self.nextSmallBoard() || self.nextSmallBoard() == field.parent;
+		if(allowedBoard && field.state() == ' '){
 			field.state(self.nextMove);
 			self.switchMove();
 			var next = self.big_rows()[field.x].big_cols[field.y];
