@@ -104,32 +104,15 @@ function SmallBoardModel(parent, id) {
 	}
 
 	self.winner = ko.computed(function() {
-		// @TODO: compute board-mirror in simple 2d array to optimize
-		var diagACount = {'O': 0, 'X': 0};
-		var diagBCount = {'O': 0, 'X': 0};
-		for(var i = 0; i<3; i++) {
-			var colCount = {'O': 0, 'X': 0};
-			var rowCount = {'O': 0, 'X': 0};
-			for(var j = 0; j<3; j++) {
-				colCount[self.rows[i].cols[j].state()]++;
-				rowCount[self.rows[j].cols[i].state()]++;
+		var board = [];
+		for(var i = 0; i < 3; i++){
+			var row = [];
+			for(var j = 0; j < 3; j++) {
+				row.push(self.rows[i].cols[j].state());
 			}
-			if(colCount['O'] == 3 || rowCount['O'] == 3){
-				return 'O';
-			}
-			if(colCount['X'] == 3 || rowCount['X'] == 3){
-				return 'X';
-			}
-			diagACount[self.rows[i].cols[i].state()]++;
-			diagBCount[self.rows[2-i].cols[i].state()]++;
+			board.push(row);
 		}
-		if(diagACount['O'] == 3 || diagBCount['O'] == 3){
-			return 'O';
-		}
-		if(diagACount['X'] == 3 || diagBCount['X'] == 3){
-			return 'X';
-		}
-		return false;
+		return ticTacToeWinner(board);
 	}, self, {deferEvaluation: true, disposeWhen: function(){return self.winner()}});
 
 	self.boardState = ko.computed(function() {
