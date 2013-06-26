@@ -22,6 +22,13 @@ function BigBoardModel() {
 			var next = self.big_rows[field.x].big_cols[field.y];
 			self.nextSmallBoard(next);
 		}
+		if(allowedBoard && field.parent.isFilled()){
+			self.switchMove();
+			self.lastMove(null);
+			var next = self.big_rows[field.x].big_cols[field.y];
+			self.nextSmallBoard(next);
+		}
+
 	};
 	
 	// big board setup
@@ -98,6 +105,16 @@ function SmallBoardModel(parent, id) {
 		}
 	});
 
+	self.isFilled = ko.computed(function() {
+		for (var i = 0; i<3; i++){
+			for(var j = 0; j<3; j++) {
+				if(self.rows[i].cols[j].state()==' '){
+					return false;
+				}
+			}
+		}
+		return true;
+	});
 
 }
 
