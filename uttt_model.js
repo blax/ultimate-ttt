@@ -22,18 +22,17 @@ function BigBoardModel() {
 		self.nextMove = self.nextMove == 'O' ? 'X' : 'O';
 	};
 
-	
-	
 	self.makeMove = function(field) {
-		field.state(self.nextMove);
-		self.switchMove();
-		self.nextSmallBoard({x: field.x, y: field.y});
+		if(!self.nextSmallBoard() || self.nextSmallBoard() == field.parent){
+			field.state(self.nextMove);
+			self.switchMove();
+			var next = self.big_rows()[field.x].big_cols[field.y];
+			self.nextSmallBoard(next);
+		}
 	};
-
-
 }
 
-function SmallBoardModel(parent) {
+function SmallBoardModel(parent, id) {
 	var self = this;
 
 	// board setup
@@ -41,7 +40,7 @@ function SmallBoardModel(parent) {
 	var makeRow = function(index) {
 		var row = [];
 		for(var i =0 ; i<3; i++) {
-			row.push(new FieldModel(index, i, ' '));
+			row.push(new FieldModel(index, i, self, ' '));
 		}
 		return row;
 	};
@@ -51,21 +50,16 @@ function SmallBoardModel(parent) {
 
 	self.activeSmallBoard = ko.computed(function() {
 		var nsb = parent.nextSmallBoard();
-		if(nsb){
-			var active = parent.big_rows()[nsb.x].big_cols[nsb.y];
-			return active == self ? "active-board" : "inactive-board";
-		}
-		else {
-			return 'active-board';
-		}
+		return (nsb && nsb !== self) ? "inactive-board" : 'active-board';
 	});
 
 }
 
-function FieldModel(x,y,state) {
+function FieldModel(x,y,parent,state) {
 	var self = this;
 	self.x = x;
 	self.y = y;
+	self.parent = parent;
 	self.state = ko.observable(state || ' ');
 }
 
