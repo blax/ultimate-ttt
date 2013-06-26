@@ -140,9 +140,3 @@ function SmallBoardModel(parent, id) {
 	});
 
 }
-
-
-
-
-
-ko.applyBindings(new BigBoardModel());
