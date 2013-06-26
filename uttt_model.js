@@ -31,6 +31,8 @@ function BigBoardModel() {
 			self.nextSmallBoard(next);
 		}
 	};
+
+	// @TODO: remember and highlight last move
 }
 
 function SmallBoardModel(parent, id) {
@@ -50,6 +52,9 @@ function SmallBoardModel(parent, id) {
 	}
 
 	self.winner = ko.computed(function() {
+		// @TODO: check if dependency chain computes a state of a board
+		// when another board changes and we need to check big-board state
+		// @TODO: compute board-mirror in simple 2d array to optimize
 		var diagACount = {'O': 0, 'X': 0};
 		var diagBCount = {'O': 0, 'X': 0};
 		for(var i = 0; i<3; i++) {
@@ -78,6 +83,7 @@ function SmallBoardModel(parent, id) {
 	});
 
 	self.boardState = ko.computed(function() {
+		// @TODO: active and won are separate things, after winning the boards still can be used
 		var nsb = parent.nextSmallBoard();
 		var w = self.winner()
 		if(w){
